@@ -26,17 +26,18 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20180813</version>
+			<version>20190722</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13-beta-1</version>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-configuration</groupId>
 			<artifactId>commons-configuration</artifactId>
-			<version>1.9</version>
+			<version>1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>
@@ -46,12 +47,7 @@
 		<dependency>
 			<groupId>org.eclipse.californium</groupId>
 			<artifactId>californium-core</artifactId>
-			<version>1.0.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20180130</version>
+			<version>1.0.7</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ubidots</groupId>
@@ -100,91 +96,30 @@
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
 							</descriptorRefs>
-							<finalName>${artifactId}-module05-${version}</finalName>
+							<finalName>${project.artifactId}-module05-${project.version}</finalName>
 						</configuration>
 					</execution>
-					<!--
-					<execution>
-						<id>module06</id>
-						<phase>package</phase>
-						<goals>
-							<goal>assembly</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<addClasspath>true</addClasspath>
-									<mainClass>schooldomain.studentname.connecteddevices.labs.module06.Module06App</mainClass>
-									<classpathPrefix>dep-libs/</classpathPrefix>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<finalName>${artifactId}-module06-${version}</finalName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>module07</id>
-						<phase>package</phase>
-						<goals>
-							<goal>assembly</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<addClasspath>true</addClasspath>
-									<mainClass>schooldomain.studentname.connecteddevices.labs.module07.Module07App</mainClass>
-									<classpathPrefix>dep-libs/</classpathPrefix>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<finalName>${artifactId}-module07-${version}</finalName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>module08</id>
-						<phase>package</phase>
-						<goals>
-							<goal>assembly</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<addClasspath>true</addClasspath>
-									<mainClass>schooldomain.studentname.connecteddevices.labs.module08.Module08App</mainClass>
-									<classpathPrefix>dep-libs/</classpathPrefix>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<finalName>${artifactId}-module08-${version}</finalName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>semester-project</id>
-						<phase>package</phase>
-						<goals>
-							<goal>assembly</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<addClasspath>true</addClasspath>
-									<mainClass>schooldomain.studentname.connecteddevices.project.SemesterProjectApp</mainClass>
-									<classpathPrefix>dep-libs/</classpathPrefix>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-							<finalName>${artifactId}-semester-project-${version}</finalName>
-						</configuration>
-					</execution>
-					-->
+					<!-- <execution> <id>module06</id> <phase>package</phase> <goals> <goal>assembly</goal> 
+						</goals> <configuration> <archive> <manifest> <addClasspath>true</addClasspath> 
+						<mainClass>schooldomain.studentname.connecteddevices.labs.module06.Module06App</mainClass> 
+						<classpathPrefix>dep-libs/</classpathPrefix> </manifest> </archive> <descriptorRefs> 
+						<descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> <finalName>${project.artifactId}-module06-${project.version}</finalName> 
+						</configuration> </execution> <execution> <id>module07</id> <phase>package</phase> 
+						<goals> <goal>assembly</goal> </goals> <configuration> <archive> <manifest> 
+						<addClasspath>true</addClasspath> <mainClass>schooldomain.studentname.connecteddevices.labs.module07.Module07App</mainClass> 
+						<classpathPrefix>dep-libs/</classpathPrefix> </manifest> </archive> <descriptorRefs> 
+						<descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> <finalName>${project.artifactId}-module07-${project.version}</finalName> 
+						</configuration> </execution> <execution> <id>module08</id> <phase>package</phase> 
+						<goals> <goal>assembly</goal> </goals> <configuration> <archive> <manifest> 
+						<addClasspath>true</addClasspath> <mainClass>schooldomain.studentname.connecteddevices.labs.module08.Module08App</mainClass> 
+						<classpathPrefix>dep-libs/</classpathPrefix> </manifest> </archive> <descriptorRefs> 
+						<descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> <finalName>${project.artifactId}-module08-${project.version}</finalName> 
+						</configuration> </execution> <execution> <id>semester-project</id> <phase>package</phase> 
+						<goals> <goal>assembly</goal> </goals> <configuration> <archive> <manifest> 
+						<addClasspath>true</addClasspath> <mainClass>schooldomain.studentname.connecteddevices.project.SemesterProjectApp</mainClass> 
+						<classpathPrefix>dep-libs/</classpathPrefix> </manifest> </archive> <descriptorRefs> 
+						<descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> <finalName>${project.artifactId}-semester-project-${project.version}</finalName> 
+						</configuration> </execution> -->
 				</executions>
 			</plugin>
 		</plugins>
