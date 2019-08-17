@@ -22,6 +22,7 @@
 
 package com.labbenchstudios.edu.connecteddevices.common;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +38,7 @@ public class ConfigUtil
 {
 	// static
 	
-	private static final Logger     _Logger   =
+	private static final Logger     _Logger =
 		Logger.getLogger(ConfigUtil.class.getName());
 	
 	private static final ConfigUtil _Instance = new ConfigUtil();
@@ -71,7 +72,7 @@ public class ConfigUtil
 	{
 		super();
 		
-		_sectionProperties = new HierarchicalINIConfiguration();
+		initBackingProperties();
 	}
 	
 	
@@ -87,7 +88,7 @@ public class ConfigUtil
 	 * a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
 	 */
-	public String getProperty(String section, String propName)
+	public synchronized String getProperty(String section, String propName)
 	{
 		SubnodeConfiguration subNodeConfig = _sectionProperties.getSection(section);
 		
@@ -104,7 +105,7 @@ public class ConfigUtil
 	 * a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a boolean.
 	 */
-	public boolean getBooleanProperty(String section, String propName)
+	public synchronized boolean getBooleanProperty(String section, String propName)
 	{
 		SubnodeConfiguration subNodeConfig = _sectionProperties.getSection(section);
 		
@@ -121,7 +122,7 @@ public class ConfigUtil
 	 * a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a int.
 	 */
-	public int getIntegerProperty(String section, String propName)
+	public synchronized int getIntegerProperty(String section, String propName)
 	{
 		SubnodeConfiguration subNodeConfig = _sectionProperties.getSection(section);
 		
@@ -138,11 +139,48 @@ public class ConfigUtil
 	 * a {@link ConversionException will be thrown}.
 	 * @Exception ConversionException Thrown if 'propName' does not map to a float.
 	 */
-	public float getFloatProperty(String section, String propName)
+	public synchronized float getFloatProperty(String section, String propName)
 	{
 		SubnodeConfiguration subNodeConfig = _sectionProperties.getSection(section);
 		
 		return subNodeConfig.getFloat(propName);
+	}
+	
+	/**
+	 * Returns true if the requested property exists in the given section.
+	 * 
+	 * @param section The section from which to retrieve 'propName'. If it
+	 * doesn't exist, it will be created.
+	 * @param propName The name of the property to retrieve.
+	 * @return boolean True if the property exists; false otherwise.
+	 * @Exception ConversionException Thrown if 'propName' does not map to a String.
+	 */
+	public synchronized boolean hasProperty(String section, String propName)
+	{
+		SubnodeConfiguration subNodeConfig = _sectionProperties.getSection(section);
+		
+		return (subNodeConfig.getProperty(propName) != null);
+	}
+	
+	/**
+	 * Returns true if the requested section exists and / or contains
+	 * any properties within the loaded configuration.
+	 * <p>
+	 * NOTE: The underlying configuration handler will create 'section' if
+	 * it doesn't already exist; hence, it can make for large configurations
+	 * if this method is called with a different non-existent section name
+	 * often, even if they remain empty (which is the default case).
+	 * 
+	 * @param section The section from which to retrieve 'propName'. If it
+	 * doesn't exist, it will be created as an empty section.
+	 * @return boolean True on success; false otherwise.
+	 * @Exception ConversionException Thrown if 'section' does not map to a String.
+	 */
+	public synchronized boolean hasSection(String section)
+	{
+		SubnodeConfiguration subNodeConfig = _sectionProperties.getSection(section);
+		
+		return (subNodeConfig != null);// && subNodeConfig.isEmpty());
 	}
 	
 	/**
@@ -152,7 +190,7 @@ public class ConfigUtil
 	 * 
 	 * @return boolean True on success; false otherwise.
 	 */
-	public boolean loadConfig()
+	public synchronized boolean loadConfig()
 	{
 		return loadConfig(ConfigConst.DEFAULT_CONFIG_FILE_NAME);
 	}
@@ -163,7 +201,7 @@ public class ConfigUtil
 	 * 
 	 * @return boolean True on success; false otherwise.
 	 */
-	public boolean loadConfig(String configFile)
+	public synchronized boolean loadConfig(String configFile)
 	{
 		boolean success = false;
 		
@@ -174,8 +212,18 @@ public class ConfigUtil
 				_Logger.warning("Config file is invalid. Using default: " + configFile);
 			}
 			
-			_sectionProperties.load(configFile);
-			_isLoaded = true;
+			// ensure config file exists
+			File cfgFile = new File(configFile);
+			
+			if (cfgFile.exists() && cfgFile.canRead()) {
+				// init the backing properties, or clear out the existing one
+				initBackingProperties();
+				
+				_sectionProperties.load(configFile);
+				_isLoaded = true;
+			} else {
+				_Logger.warning("Config file either doesn't exist or can't be read.");
+			}
 		} catch (ConfigurationException e) {
 			_Logger.log(Level.WARNING, "Failed to load configuration file: " + configFile, e);
 		}
@@ -201,6 +249,19 @@ public class ConfigUtil
 	public boolean isConfigFileLoaded()
 	{
 		return _isLoaded;
+	}
+	
+	// private methods
+	
+	/**
+	 * Initializes the backing properties store - this will either create a new
+	 * instance (if the current ref is null) or clear the contents from the
+	 * existing instance.
+	 * 
+	 */
+	private void initBackingProperties()
+	{
+		_sectionProperties = new HierarchicalINIConfiguration();
 	}
 	
 }

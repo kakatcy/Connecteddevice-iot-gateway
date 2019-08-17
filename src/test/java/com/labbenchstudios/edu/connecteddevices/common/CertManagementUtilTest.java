@@ -22,8 +22,14 @@
 
 package com.labbenchstudios.edu.connecteddevices.common;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+
 import javax.net.ssl.SSLSocketFactory;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -34,29 +40,45 @@ import org.junit.Test;
  */
 public class CertManagementUtilTest
 {
-	// private var's
+	// static
 	
 	/**
 	 * NOTE: Copy a valid cert into the given file name, and uncomment
 	 * the @Test annotation before {@link #testImportOfCertFromValidFile}
 	 * to test.
 	 */
-	private String _testValidFileName    =
-		"E:\\aking\\Documents\\workspace\\connected-devices-java\\src\\test\\java\\com\\labbenchstudios\\edu\\connecteddevices\\common\\test_cert_validA.pem";
+	public static final String DIR_PREFIX = "./src/test/java/com/labbenchstudios/edu/connecteddevices/common/";
 	
-	private String _testInvalidFileNameA =
-		"E:\\aking\\Documents\\workspace\\connected-devices-java\\src\\test\\java\\com\\labbenchstudios\\edu\\connecteddevices\\common\\test_cert_emptyA.pem";
+	public static final String TEST_VALID_CERT_FILE = DIR_PREFIX + "test_cert_validA.pem";
+	public static final String TEST_INVALID_CERT_FILEA = DIR_PREFIX + "test_cert_emptyA.pem";
+	public static final String TEST_INVALID_CERT_FILEB = DIR_PREFIX + "test_cert_emptyB.pem";
+	public static final String TEST_INVALID_CERT_FILEC = DIR_PREFIX + "test_cert_emptyC.pem";
+	public static final String TEST_MISSING_CERT_FILE = DIR_PREFIX + "non_existent_file.pem";
 	
-	private String _testInvalidFileNameB =
-		"E:\\aking\\Documents\\workspace\\connected-devices-java\\src\\test\\java\\com\\labbenchstudios\\edu\\connecteddevices\\common\\test_cert_emptyB.pem";
-	
-	private String _testInvalidFileNameC =
-		"E:\\aking\\Documents\\workspace\\connected-devices-java\\src\\test\\java\\com\\labbenchstudios\\edu\\connecteddevices\\common\\test_cert_emptyC.pem";
-	
-	private String _testNonExistentFileName =
-		"E:\\aking\\Documents\\workspace\\connected-devices-java\\src\\test\\java\\com\\labbenchstudios\\edu\\connecteddevices\\common\\non_existent_file.pem";
 	
 	// test methods
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception
+	{
+		// make sure test files exist
+		File validTestFile = new File(TEST_VALID_CERT_FILE);
+		File invalidTestFileA = new File(TEST_INVALID_CERT_FILEA);
+		File invalidTestFileB = new File(TEST_INVALID_CERT_FILEB);
+		File invalidTestFileC = new File(TEST_INVALID_CERT_FILEC);
+		File missingTestFile = new File(TEST_MISSING_CERT_FILE);
+		
+		// TODO: uncomment next LOC after copying a valid PEM file
+		//assertTrue(validTestFile.exists());
+		
+		assertTrue(invalidTestFileA.exists());
+		assertTrue(invalidTestFileB.exists());
+		assertTrue(invalidTestFileC.exists());
+		assertFalse(missingTestFile.exists());
+	}
 	
 	/**
 	 * Tests {@link CertManagementUtil} with a certificate file
@@ -69,7 +91,7 @@ public class CertManagementUtilTest
 	public void testImportOfCertFromValidFile()
 	{
 		CertManagementUtil certMgr = CertManagementUtil.getInstance();
-		SSLSocketFactory   factory = certMgr.loadCertificate(_testValidFileName);
+		SSLSocketFactory   factory = certMgr.loadCertificate(TEST_VALID_CERT_FILE);
 		
 		org.junit.Assert.assertNotNull(factory);
 	}
@@ -96,7 +118,7 @@ public class CertManagementUtilTest
 	public void testImportOfCertFromEmptyFileA()
 	{
 		CertManagementUtil certMgr = CertManagementUtil.getInstance();
-		SSLSocketFactory   factory = certMgr.loadCertificate(_testInvalidFileNameA);
+		SSLSocketFactory   factory = certMgr.loadCertificate(TEST_INVALID_CERT_FILEA);
 		
 		org.junit.Assert.assertNull(factory);
 	}
@@ -110,7 +132,7 @@ public class CertManagementUtilTest
 	public void testImportOfCertFromEmptyFileB()
 	{
 		CertManagementUtil certMgr = CertManagementUtil.getInstance();
-		SSLSocketFactory   factory = certMgr.loadCertificate(_testInvalidFileNameB);
+		SSLSocketFactory   factory = certMgr.loadCertificate(TEST_INVALID_CERT_FILEB);
 		
 		org.junit.Assert.assertNull(factory);
 	}
@@ -123,7 +145,7 @@ public class CertManagementUtilTest
 	public void testImportOfCertFromEmptyFileC()
 	{
 		CertManagementUtil certMgr = CertManagementUtil.getInstance();
-		SSLSocketFactory   factory = certMgr.loadCertificate(_testInvalidFileNameC);
+		SSLSocketFactory   factory = certMgr.loadCertificate(TEST_INVALID_CERT_FILEC);
 		
 		org.junit.Assert.assertNull(factory);
 	}
@@ -136,7 +158,7 @@ public class CertManagementUtilTest
 	public void testImportOfCertFromNonExistentFile()
 	{
 		CertManagementUtil certMgr = CertManagementUtil.getInstance();
-		SSLSocketFactory   factory = certMgr.loadCertificate(_testNonExistentFileName);
+		SSLSocketFactory   factory = certMgr.loadCertificate(TEST_MISSING_CERT_FILE);
 		
 		org.junit.Assert.assertNull(factory);
 	}

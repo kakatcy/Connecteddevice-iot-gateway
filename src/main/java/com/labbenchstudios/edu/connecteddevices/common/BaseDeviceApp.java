@@ -40,13 +40,13 @@ public abstract class BaseDeviceApp
 		Logger.getLogger(BaseDeviceApp.class.getName());
 	
     /** Indicates a normal exit when used as the exit code */
-    public static final int NORMAL_EXIT_CODE   =  0;
+    public static final int NORMAL_EXIT_CODE =  0;
 
     /** Indicates an abnormal, but not erroneous, exit */
     public static final int ABNORMAL_EXIT_CODE =  1;
 
     /** Indicates an error-forced exit */
-    public static final int ERROR_EXIT_CODE    = -1;
+    public static final int ERROR_EXIT_CODE = -1;
 
     /** Default server port */
     public static final int DEFAULT_SERVER_PORT = 45832;
@@ -55,44 +55,46 @@ public abstract class BaseDeviceApp
     public static final String DEFAULT_SERVER_HOST = "localhost";
     
     /** Cmd line arg indicator ('-') */
-    public static final String DASH_STR        = "-";
+    public static final String DASH_STR = "-";
 
     /** Help cmd line arg - long */
-    public static final String HELP_ARG_LONG   = "help";
+    public static final String HELP_ARG_LONG = "help";
 
     /** Help cmd line arg - short */
-    public static final String HELP_ARG_SHORT  = "h";
+    public static final String HELP_ARG_SHORT = "h";
 
     // static method section
 
     
     // private member var section
     
-    private Properties _configProps    = null;
-    private String     _appName        = this.getClass().getSimpleName();
-    private String[]   _args           = null;
-    private int        _exitCode       = NORMAL_EXIT_CODE;
+    private Properties _configProps = null;
+    private String     _appName     = this.getClass().getSimpleName();
+    private String[]   _args        = null;
+    private int        _exitCode    = NORMAL_EXIT_CODE;
 
 
     // constructor section
 
     /**
-     * Create a default BaseApp with only a name passed in by the sub-class.
+     * Constructs a default BaseApp using the default name (simple class name)
+     * and no arguments.
+     * <p>
      * Use of this constructor assumes there are no command-line args, nor
      * is there an available configuration file.
-     *
+     * 
      */
     protected BaseDeviceApp()
     {
-        this (null, null);
+        this(null, null);
     }
 
     /**
-     * Create a BaseApp object with params. This requires the sub-class
-     * to pass in both the name of the application and the name of
-     * the app's configuration file. Null is allowed in both cases,
-     * but not recommended, as it severely limits some functionality.
-     *
+     * Constructs a BaseApp object with the given name parameter.
+     * <p>
+     * Use of this constructor assumes there are no command-line args, nor
+     * is there an available configuration file.
+     * 
      * @param appName The name of the application. If null, the simple
      * class name will be used instead.
      */
@@ -102,10 +104,8 @@ public abstract class BaseDeviceApp
     }
 
     /**
-     * Create a BaseApp object with 'args'. This requires the sub-class
-     * to pass in both the name of the application and the name of
-     * the app's configuration file. Null is allowed in both cases,
-     * but not recommended, as it severely limits some functionality.
+     * Constructs a BaseApp object with the given name parameter and
+     * argument array.
      *
      * @param appName The name of the application. If null, the simple
      * class name will be used instead.
@@ -122,35 +122,35 @@ public abstract class BaseDeviceApp
     // public methods
 
     /**
-     * Returns the name of this application (set by the sub-class).
-     * Null is a valid return value (if no name is set).
+     * Returns the name of this application (set by the sub-class, or
+     * if not, the default simple class name will be used).
      *
      * @return String The name of this application.
      */
-    public String getAppName()
+    public final String getAppName()
     {
         return _appName;
     }
     
     /**
-     * Returns the original arguments passed into this application.
+     * Returns the original arguments passed in during construction.
      * 
      * @return String[]
      */
-    public String[] getArgs()
+    public final String[] getArgs()
     {
     	return _args;
     }
     
     /**
-     * Returns the current exit code, which should be set internally, or
-     * by the sub-class. This method should always be called to retrieve
+     * Returns the current exit code - if set - which should be set internally,
+     * or by the sub-class. This method should always be called to retrieve
      * the exit code, vs. just using the variable (in case the sub-class
      * overrides the get/set method(s).
      *
      * @return int The exit code for this app.
      */
-    public int getExitCode()
+    public final int getExitCode()
     {
         return _exitCode;
     }
@@ -161,7 +161,7 @@ public abstract class BaseDeviceApp
      * gracefully (if possible) should an exception get thrown.
      * 
      */
-    public void startApp()
+    public final void startApp()
     {
     	try {
     		start();
@@ -174,14 +174,12 @@ public abstract class BaseDeviceApp
     }
 
     /**
-     * Stops this application. The implementation can be overridden, but
-     * it's likely that most app's can use what's given here. HOWEVER, if
-     * an app is expected to have open resources (sockets, files, etc.)
-     * when this method is called, it should override it, close all appropriate
-     * resources, and finally call super.stop () as the last thing it does.
+     * Entry point to stop the application. This will invoke
+     * {@link #stop()} withi a try / catch block, exiting the app
+     * gracefully (if possible) should an exception get thrown.
      *
      */
-    public void stopApp()
+    public final void stopApp()
     {
         try {
         	stop();
@@ -213,7 +211,7 @@ public abstract class BaseDeviceApp
      * 
      * @return Properties
      */
-    protected Properties getConfigurationProps()
+    protected final Properties getConfigurationProps()
     {
     	return _configProps;
     }
@@ -225,7 +223,7 @@ public abstract class BaseDeviceApp
      *
      * @param exitCode The exit code (int) for this app.
      */
-    protected void setExitCode(int exitCode)
+    protected final void setExitCode(int exitCode)
     {
         _exitCode = exitCode;
     }

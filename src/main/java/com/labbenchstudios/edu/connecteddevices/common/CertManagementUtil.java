@@ -50,12 +50,12 @@ public class CertManagementUtil
 {
 	// static
 	
-	private static final Logger             _Logger   =
+	private static final Logger _Logger =
 		Logger.getLogger(CertManagementUtil.class.getSimpleName());
 	
 	private static final CertManagementUtil _Instance = new CertManagementUtil();
 	
-	public static final String DEFAULT_SOCKET_TYPE      = "SSL";
+	public static final String DEFAULT_SOCKET_TYPE = "SSL";
 	public static final String DEFAULT_CERTIFICATE_TYPE = "X.509";
 	
 	/**

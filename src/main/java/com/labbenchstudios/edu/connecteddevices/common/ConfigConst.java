@@ -112,6 +112,7 @@ public class ConfigConst
 	public static final String ENABLE_CRYPT_KEY       = "enableCrypt";
 	public static final String ENABLE_EMULATOR_KEY    = "enableEmulator";
 	public static final String ENABLE_LOGGING_KEY     = "enableLogging";
+	public static final String USE_WEB_ACCESS_KEY     = "useWebAccess";
 	public static final String POLL_CYCLES_KEY        = "pollCycleSecs";
 	public static final String CLOUD_SVC_TYPE_KEY     = "cloudSvcType";
 
