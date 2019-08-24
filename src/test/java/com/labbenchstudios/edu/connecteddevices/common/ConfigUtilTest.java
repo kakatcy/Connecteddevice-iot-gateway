@@ -106,12 +106,12 @@ public class ConfigUtilTest
 	}
 	
 	/**
-	 * Test method for {@link com.labbenchstudios.edu.connecteddevices.common.ConfigUtil#isConfigFileLoaded()}.
+	 * Test method for {@link com.labbenchstudios.edu.connecteddevices.common.ConfigUtil#isConfigDataLoaded()}.
 	 */
 	@Test
-	public void testIsConfigFileLoaded()
+	public void testIsConfigDataLoaded()
 	{
-		assertTrue(ConfigUtil.getInstance().isConfigFileLoaded());
+		assertTrue(ConfigUtil.getInstance().isConfigDataLoaded());
 	}
 	
 }

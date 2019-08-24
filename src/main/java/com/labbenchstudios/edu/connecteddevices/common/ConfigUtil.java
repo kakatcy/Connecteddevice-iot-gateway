@@ -246,7 +246,7 @@ public class ConfigUtil
 	 * @return true True if the most recent load invocation was successful;
 	 * false otherwise.
 	 */
-	public boolean isConfigFileLoaded()
+	public boolean isConfigDataLoaded()
 	{
 		return _isLoaded;
 	}
