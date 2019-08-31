@@ -89,6 +89,11 @@ public class ConfigConst
 	public static final String CLOUD_COAP_HOST        = "coapHost";
 	public static final String CLOUD_COAP_PORT        = "coapPort";
 
+	public static final String SMTP_PROP_HOST_KEY       = "mail.smtp.host";
+	public static final String SMTP_PROP_PORT_KEY       = "mail.smtp.port";
+	public static final String SMTP_PROP_AUTH_KEY       = "mail.smtp.auth";
+	public static final String SMTP_PROP_ENABLE_TLS_KEY = "mail.smtp.starttls.enable";
+	
 	public static final String FROM_ADDRESS_KEY       = "fromAddr";
 	public static final String TO_ADDRESS_KEY         = "toAddr";
 	public static final String TO_MEDIA_ADDRESS_KEY   = "toMediaAddr";
