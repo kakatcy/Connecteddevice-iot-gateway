@@ -71,7 +71,8 @@ public class Module01App extends BaseDeviceApp
 	protected void start() throws DeviceApplicationException
 	{
 		_Logger.info("Hello - module01 here!");
-		
+		SystemPerformanceApp app = new SystemPerformanceApp();
+		app.startApp();
 	}
 	
 	/* (non-Javadoc)

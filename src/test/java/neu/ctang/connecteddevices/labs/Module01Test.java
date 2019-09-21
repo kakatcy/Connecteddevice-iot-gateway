@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import neu.ctang.connecteddevices.labs.module01.SystemCpuUtilTask;
+import neu.ctang.connecteddevices.labs.module01.SystemMemUtilTask;
+
 /**
  * Test class for all requisite Module01 functionality.
  * 
@@ -38,9 +41,18 @@ public class Module01Test
 	}
 	
 	@Test
-	public void testSomething()
+	public void testCpuRate()
 	{
-//		fail("Not yet implemented");
+		float cpurate = new SystemCpuUtilTask().getCpuRate();
+		assertTrue(cpurate >=0.0 && cpurate<=100.0);
 	}
+	
+	@Test
+	public void testMemRate() {
+		float memrate = new SystemMemUtilTask().getMemRate();
+		assertTrue(memrate>=0.0 && memrate<=100.0);
+	}
+	
+	
 	
 }
