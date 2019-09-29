@@ -214,7 +214,7 @@ public class ConfigUtil
 			
 			// ensure config file exists
 			File cfgFile = new File(configFile);
-			
+		//	System.out.println(cfgFile.getAbsolutePath());
 			if (cfgFile.exists() && cfgFile.canRead()) {
 				// init the backing properties, or clear out the existing one
 				initBackingProperties();

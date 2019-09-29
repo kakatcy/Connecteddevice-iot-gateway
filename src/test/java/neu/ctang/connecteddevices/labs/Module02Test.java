@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import neu.ctang.connecteddevices.common.SensorData;
+
 /**
  * Test class for all requisite Module02 functionality.
  * 
@@ -38,8 +40,21 @@ public class Module02Test
 	}
 	
 	@Test
-	public void testSomething()
+	public void testAddValue()
 	{
+		float testValue = 10.0f;
+		SensorData sensordata=new SensorData();
+		sensordata.addValue(testValue);
+		float curValue = sensordata.getCurValue();
+		assertTrue(curValue==testValue);
+		float avgValue = sensordata.getAvgValue();
+		assertTrue(avgValue==testValue);
+		float minValue =sensordata.getMinValue();
+		assertTrue(minValue==testValue);
+		float maxValue =sensordata.getMaxValue();
+		assertTrue(maxValue==testValue);
+		float totValue =sensordata.getTotValue();
+		assertTrue(totValue==testValue);
 //		fail("Not yet implemented");
 	}
 	
