@@ -22,16 +22,6 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 	public SensorData() {
 		super();
 	}
-	
-//	public void addFirstValue(float curValue) {
-//		updateTimeStamp();
-//		this.curValue = curValue;
-//		this.avgValue = curValue;
-//		this.minValue = curValue;
-//		this.maxValue = curValue;
-//		this.totValue = curValue;
-//		this.sampleCount = 1;
-//	}
 
 	public void addValue(float val) {
 		updateTimeStamp();
@@ -73,6 +63,14 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 	protected void start() throws DeviceApplicationException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public float getCurValue() {

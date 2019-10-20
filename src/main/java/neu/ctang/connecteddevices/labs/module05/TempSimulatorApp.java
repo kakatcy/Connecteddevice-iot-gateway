@@ -4,13 +4,13 @@ import java.util.logging.Logger;
 import com.labbenchstudios.edu.connecteddevices.common.BaseDeviceApp;
 import com.labbenchstudios.edu.connecteddevices.common.DeviceApplicationException;
 
-public class TempSimulatorApp extends BaseDeviceApp{
+public class TempSimulatorApp extends BaseDeviceApp {
 	private static final Logger _Logger = Logger.getLogger(TempSimulatorApp.class.getSimpleName());
 
 	public static Logger getLogger() {
 		return _Logger;
 	}
-	
+
 	public TempSimulatorApp() {
 		super();
 	}
@@ -26,16 +26,13 @@ public class TempSimulatorApp extends BaseDeviceApp{
 	@Override
 	protected void start() throws DeviceApplicationException {
 		// TODO Auto-generated method stub
-//		SystemPerformanceAdaptor adaptor = new SystemPerformanceAdaptor(5000);
-//		adaptor.run();
 		TempSensorEmulatorTask tempsensor = new TempSensorEmulatorTask();
-		tempsensor.run();
+		tempsensor.t.start();
 	}
 
 	@Override
 	protected void stop() throws DeviceApplicationException {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
-

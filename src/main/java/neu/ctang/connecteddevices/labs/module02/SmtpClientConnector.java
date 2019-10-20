@@ -17,7 +17,7 @@ public class SmtpClientConnector {
 	
 	public void connect() throws MessagingException {
 		if (!_isConnected) {
-			_Logger.info("Initializing SMTP gateway...");
+			//_Logger.info("Initializing SMTP gateway...");
 			String configFile = "config/ConnectedDevicesConfig.props";
 			Properties props = new Properties();
 			ConfigUtil conUtil = ConfigUtil.getInstance();
@@ -32,7 +32,7 @@ public class SmtpClientConnector {
 			props.put(ConfigConst.SMTP_PROP_AUTH_KEY, ConfigConst.ENABLE_AUTH_KEY);
 			
 			props.put(ConfigConst.SMTP_PROP_ENABLE_TLS_KEY, ConfigConst.ENABLE_CRYPT_KEY);
-			_Logger.info(props.toString());
+		//	_Logger.info(props.toString());
 			
 			_smtpSession = Session.getDefaultInstance(props);
 			try {
@@ -83,7 +83,7 @@ public class SmtpClientConnector {
 			smtpMsg.setSubject(resource.getTopic());
 			smtpMsg.setText(new String(payload));
 			t.sendMessage(smtpMsg, smtpMsg.getAllRecipients());
-			System.out.println("send email successfully");
+	//		System.out.println("send email successfully");
 			t.close();
 			success = true;
 		} catch (Exception e) {

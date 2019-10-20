@@ -71,6 +71,8 @@ public class Module05App extends BaseDeviceApp
 	protected void start() throws DeviceApplicationException
 	{
 		_Logger.info("Hello - module05 here!");
+		TempSimulatorApp tempApp = new TempSimulatorApp();
+		tempApp.start();
 		
 	}
 	
