@@ -11,7 +11,8 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Timestamp timestamp = null;
+	private Timestamp timeStamp = null;
+	private String name = "Temperature";
 	private float curValue =0.0f;
 	private float avgValue =0.0f;
 	private float minValue =0.0f;
@@ -44,7 +45,7 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 
 	private void updateTimeStamp() {
 		// TODO Auto-generated method stub
-		this.timestamp = new Timestamp(System.currentTimeMillis());
+		this.timeStamp = new Timestamp(System.currentTimeMillis());
 	}
 
 //	public SensorData getSensorData() {
@@ -66,11 +67,19 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 	}
 
 	public Timestamp getTimestamp() {
-		return timestamp;
+		return timeStamp;
 	}
 
 	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
+		this.timeStamp = timestamp;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public float getCurValue() {
@@ -134,7 +143,7 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 	public String getString() {
 		// TODO Auto-generated method stub
 		String result = "Temperature:\n"+
-							"\tTime:"+this.timestamp + "\n"+
+							"\tTime:"+this.timeStamp + "\n"+
 							"\tCurrent:"+this.curValue + "\n"+
 							"\tAverage:"+this.avgValue + "\n"+
 							"\tSample:"+this.sampleCount + "\n"+
