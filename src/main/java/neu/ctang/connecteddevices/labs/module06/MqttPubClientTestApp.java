@@ -48,7 +48,6 @@ public class MqttPubClientTestApp {
 		DataUtil datautil = new DataUtil();
 		String jsondata = datautil.toJsonFromSensorData(sensordata);
 		_Logger.info(jsondata);
-		
 
 		_mqttClient = new MqttClientConnector();
 		_mqttClient.connect();
