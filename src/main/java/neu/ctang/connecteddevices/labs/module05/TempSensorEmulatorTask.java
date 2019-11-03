@@ -67,7 +67,8 @@ public class TempSensorEmulatorTask implements Runnable {
 				_Logger.info("\n-------------\nNew sensor readings:\n" + "sampleCount=" + sensorData.getSampleCount()
 						+ ",avgValue=" + sensorData.getAvgValue() + ",minValue=" + sensorData.getMinValue()
 						+ ",maxValue=" + sensorData.getMaxValue() + ",curValue" + sensorData.getCurValue()
-						+ ",timestamp=" + sensorData.getTimestamp() + ",totValue=" + sensorData.getTotValue());
+						+ ",timestamp=" + sensorData.getTimestamp() 
+						+ ",totValue=" + sensorData.getTotValue());
 
 				// convert to json file from sensordata object
 				String gsonData = datautil.toJsonFromSensorData(sensorData);

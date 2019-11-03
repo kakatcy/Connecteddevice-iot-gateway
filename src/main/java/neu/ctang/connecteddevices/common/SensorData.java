@@ -1,17 +1,19 @@
 package neu.ctang.connecteddevices.common;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.sql.Timestamp;
+import java.sql.Date;
 import com.labbenchstudios.edu.connecteddevices.common.*;
 
 //public class SensorData extends BaseIotData implements Serializable {
-public class SensorData extends BaseDeviceApp implements Serializable {
+public class SensorData extends BaseDeviceApp {
 /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 
-	private Timestamp timeStamp = null;
+	private String timeStamp = null;
+//	private Date timeStamp = null;
 	private String name = "Temperature";
 	private float curValue =0.0f;
 	private float avgValue =0.0f;
@@ -45,7 +47,9 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 
 	private void updateTimeStamp() {
 		// TODO Auto-generated method stub
-		this.timeStamp = new Timestamp(System.currentTimeMillis());
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		this.timeStamp=timestamp.toString();
+		
 	}
 
 //	public SensorData getSensorData() {
@@ -66,11 +70,11 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 		
 	}
 
-	public Timestamp getTimestamp() {
+	public String getTimestamp() {
 		return timeStamp;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timeStamp = timestamp;
 	}
 
@@ -130,9 +134,9 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 		this.sampleCount = sampleCount;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+//	public static long getSerialversionuid() {
+//		return serialVersionUID;
+//	}
 
 	@Override
 	protected void stop() throws DeviceApplicationException {
@@ -143,7 +147,7 @@ public class SensorData extends BaseDeviceApp implements Serializable {
 	public String getString() {
 		// TODO Auto-generated method stub
 		String result = "Temperature:\n"+
-							"\tTime:"+this.timeStamp + "\n"+
+							//"\tTime:"+this.timeStamp + "\n"+
 							"\tCurrent:"+this.curValue + "\n"+
 							"\tAverage:"+this.avgValue + "\n"+
 							"\tSample:"+this.sampleCount + "\n"+

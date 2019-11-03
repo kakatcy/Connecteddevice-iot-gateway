@@ -27,11 +27,11 @@ public class DataUtil {
 	// convert json format data to sensordata object
 	public SensorData toSensorDataFromJson(String jsonData) {
 		SensorData sensordata = null;
+		//System.out.println(jsonData);
 		if (jsonData != null && jsonData.trim().length() > 0) {
 			Gson gson = new Gson();
 			sensordata = gson.fromJson(jsonData, SensorData.class);
 		}
-		// System.out.println("sensordata:" + sensordata.getCurValue());
 		return sensordata;
 	}
 
