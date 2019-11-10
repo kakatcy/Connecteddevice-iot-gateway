@@ -5,12 +5,6 @@ import java.util.logging.Logger;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
-import com.ubidots.ApiClient;
-import com.ubidots.DataSource;
-import com.ubidots.Variable;
-
-import neu.ctang.connecteddevices.common.DataUtil;
-import neu.ctang.connecteddevices.common.SensorData;
 import neu.ctang.connecteddevices.labs.module06.MqttClientConnector;
 //import neu.ctang.connecteddevices.labs.module06.MqttPubClientTestApp;
 
@@ -39,12 +33,14 @@ public class TempActuatorSubscriberApp {
 	// public methods
 	public void start() throws MqttPersistenceException, MqttException, InterruptedException {
 
-		//_mqttClient = new MqttClientConnector();
-		_mqttClient = new MqttClientConnector("ssl://industrial.api.ubidots.com:8883","BBFF-B7HsNg1Sv3UESmoikX8oyyNxyx4jts","/Users/cytang/program/connected devices/ubidots_cert.pem");
+		// new a mqttClientConnector and used hostname, token and certpath as parameters
+		_mqttClient = new MqttClientConnector("ssl://industrial.api.ubidots.com:8883",
+				"BBFF-B7HsNg1Sv3UESmoikX8oyyNxyx4jts", "/Users/cytang/program/connected devices/ubidots_cert.pem");
 		_mqttClient.connect();
+
+		// subscribe tempactuator
 		String topicName = "/v1.6/devices/tcydevice/tempactuator";
-		
-		_mqttClient.subscribeToTopic(topicName,1);
+		_mqttClient.subscribeToTopic(topicName, 1);
 
 	}
 }

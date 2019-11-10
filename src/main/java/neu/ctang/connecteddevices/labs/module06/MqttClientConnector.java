@@ -21,48 +21,50 @@ import com.labbenchstudios.edu.connecteddevices.common.CertManagementUtil;
 public class MqttClientConnector {
 
 	private static int qos = 2;
-	//private static String broker = "tcp://nannoiot.franxx.live:1883";
-	//private static String broker = "tcp://140.238.32.242:1883";
+	// private static String broker = "tcp://nannoiot.franxx.live:1883";
+	// private static String broker = "tcp://140.238.32.242:1883";
 	private static String broker = "tcp://localhost:1883";
 	private static final Logger _Logger = Logger.getLogger(MqttPubClientTestApp.class.getName());
-	
+
 	MqttClient mqttClient;
 	String clientId = "temp_java";
 	MqttConnectOptions connOpts;
 
 	private static boolean useTLS = false;
-	
+
 	public MqttClientConnector() {
 		// TODO Auto-generated constructor stub
 		connOpts = new MqttConnectOptions();
 	}
-	
+
 	public MqttClientConnector(String hostname, String token, String certFilepath) {
+		// load the certificate of ubidots
 		CertManagementUtil certManagemenUtil = CertManagementUtil.getInstance();
 		SSLSocketFactory sslSocketFactory = certManagemenUtil.loadCertificate(certFilepath);
 		broker = hostname;
-		 
+
+		// set ssl username, password... parameters
 		connOpts = new MqttConnectOptions();
 		connOpts.setSocketFactory(sslSocketFactory);
-		
+
 		String[] uris = new String[1];
 		uris[0] = hostname;
 		connOpts.setServerURIs(uris);
 		connOpts.setUserName(token);
 		connOpts.setPassword("".toCharArray());
 	}
-	
+
 	// connect with the broker
 	public void connect() throws MqttException {
 		MemoryPersistence persistence = new MemoryPersistence();
-	//	MqttConnectOptions connOpts = new MqttConnectOptions();
+		// MqttConnectOptions connOpts = new MqttConnectOptions();
 		connOpts.setCleanSession(false);
 		connOpts.setConnectionTimeout(70);
 		connOpts.setKeepAliveInterval(70);
-	
+
 		mqttClient = new MqttClient(broker, clientId, persistence);
 
-		System.out.println("connect to broker:"+ broker);
+		System.out.println("connect to broker:" + broker);
 		mqttClient.setCallback(new PushCallback());
 		mqttClient.connect(connOpts);
 	}
@@ -85,15 +87,15 @@ public class MqttClientConnector {
 	}
 
 	public void subscribeToTopic(String topicName, int qos) {
-			try {
-				mqttClient.subscribe(topicName,qos);
-			} catch (MqttException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
+		try {
+			mqttClient.subscribe(topicName, qos);
+		} catch (MqttException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-	
+
 	// disconnected with broker
 	public void disconnect() {
 		try {
