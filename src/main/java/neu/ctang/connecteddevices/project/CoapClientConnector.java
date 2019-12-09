@@ -7,6 +7,7 @@ import java.util.logging.*;
 
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.WebLink;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
 
 import com.labbenchstudios.edu.connecteddevices.common.*;
 
@@ -51,37 +52,25 @@ public class CoapClientConnector {
 		_Logger.info("URI:" + uri);
 	}
 
-	// public methods
-	public void discoverResources() {
-		_Logger.info("Issuing discover...");
-		initClient();
-		Set<WebLink> wlSet = _clientConn.discover();
-		if (wlSet != null) {
-			for (WebLink wl : wlSet) {
-				_Logger.info(" --> WebLink: "+wl.getURI());
-			}
-		}
-	}
-
-	public void sendGetRequest() {
+	public void sendPutRequest(String payload) {
 	//	initClient();
-		initClient("temp");
+		initClient("temp1");
 		if (useNON) {
 			_clientConn.useNONs();
 		}
-		// NOTE: you must implement the rest of this yourself
-		String getInfo = _clientConn.get().getResponseText();
-		//String getInfo1 = new String(_clientConn.get().getPayload());
-		_Logger.info("send GET request to server\n"+getInfo);
-		_Logger.info("Code\n"+_clientConn.get().getCode());
-		_Logger.info("Options\n"+_clientConn.get().getOptions());
-		
+		_Logger.info("current payload is " + payload);
+		if(!payload.equals(null)) {
+			//put actuators data to constrained devices 
+			String getInfo = _clientConn.put(payload,MediaTypeRegistry.TEXT_PLAIN).getResponseText();
+			_Logger.info(getInfo);
+		}
 	}
 
 	private void initClient() {
 		initClient(null);
 	}
 
+	//add the resourcename to the address
 	private void initClient(String resourceName) {
 		if (_isInitialized) {
 			return;
@@ -96,7 +85,6 @@ public class CoapClientConnector {
 			}
 			_clientConn = new CoapClient(_serverAddr);
 		//	uri = new URI(_serverAddr);
-		//	_clientConn = new CoapClient("coap://localhost:5683/temp");
 			_Logger.info("Created client connection to server / resource: " + _serverAddr);
 		} catch (Exception e) {
 			_Logger.log(Level.SEVERE,"Failed to connect to broker: "+ getCurrentUri(),e);
@@ -108,9 +96,9 @@ public class CoapClientConnector {
 		return _clientConn.getURI();
 	}
 
-	public void runTests(String temp) {
+	public void runTests(String temp, String payload) {
 		// TODO Auto-generated method stub
-		sendGetRequest();
-		//discoverResources();
+		//put payload to constrained devices
+		sendPutRequest(payload);
 	}
 }

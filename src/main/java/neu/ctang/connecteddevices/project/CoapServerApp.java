@@ -1,9 +1,9 @@
 package neu.ctang.connecteddevices.project;
 
-public class CoapServerTestApp {
+public class CoapServerApp {
 
 	public static void main(String[] args) {
-		CoapServerTestApp _App = new CoapServerTestApp();
+		CoapServerApp _App = new CoapServerApp();
 		try {
 			_App.start();
 		} catch (Exception e) {
@@ -15,7 +15,7 @@ public class CoapServerTestApp {
 	private CoapServerConnector _coapServer;
 
 	// constructors
-	public CoapServerTestApp()
+	public CoapServerApp()
     {
 		super(); 
 	}

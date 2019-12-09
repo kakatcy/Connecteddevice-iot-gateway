@@ -4,9 +4,6 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
-import neu.ctang.connecteddevices.common.DataUtil;
-import neu.ctang.connecteddevices.common.SensorData;
-
 import java.util.logging.Logger;
 
 public class TempResourceHandler extends CoapResource {
@@ -32,18 +29,29 @@ public class TempResourceHandler extends CoapResource {
 		// receive data from the client
 		byte[] payload = ce.getRequestPayload();
 		try {
-			String jsondata2 = new String(payload, "UTF-8");
-			// log the second json data
-			_Logger.info("the second jsondata(client post):\n" + jsondata2);
-
-			// convert the json data to sensordata
-			//DataUtil datautil = new DataUtil();
-			//SensorData sensordata = datautil.toSensorDataFromJson(jsondata2);
-
-			// convert the sensordata to json data again
-			//String jsondata3 = datautil.toJsonFromSensorData(sensordata);
-			//_Logger.info("the third jsondata(server converted):\n" + jsondata3);
-			//ce.respond(ResponseCode.CHANGED, jsondata2);
+			String sensorData = new String(payload, "UTF-8");
+			// log the sensor data
+			_Logger.info("the data(client post):\n" + sensorData);
+			
+			//extract temperature and humidity
+			String temperature = sensorData.split(",")[0];
+			String humidity = sensorData.split(",")[1];
+			
+			//connect to Ubidots
+			UbidotsClientConnector _httpClient = new UbidotsClientConnector();
+			_httpClient.connect();
+			
+			// the topic name of tempsensor in ubidots
+			//publish temperature and humidity to ubidots respectively
+			String topicName = "/v1.6/devices/finaldevice/temperature";
+			double temperature1 = Double.parseDouble(temperature);
+			_httpClient.publishMessage("5de42e6e1d84725dc4107c0f",topicName, 0, temperature1);
+			
+			String topicNameHumidity = "/v1.6/devices/finaldevice/humidity";
+			double humidity1 = Double.parseDouble(humidity);
+			_httpClient.publishMessage("5de42e7e1d84725d134ed82e",topicNameHumidity, 0, humidity1);
+			_Logger.info("published successfully by using ubidots API");
+			Thread.sleep(60000);
 		} catch (Exception e) {
 			e.printStackTrace();
 			ce.respond(ResponseCode.BAD_REQUEST, "Invalid String");

@@ -28,8 +28,8 @@ public class CoapServerConnector {
 			_coapServer = new CoapServer();
 			// NOTE: you must implement TempResourceHandler yourself
 			TempResourceHandler tempHandler = new TempResourceHandler();
+			//add Handler to hand post put get delete operations
 			_coapServer.add(tempHandler);
-			// _Logger.info(msg);
 		}
 		_Logger.info("Starting CoAP server...");
 		// start coap server
