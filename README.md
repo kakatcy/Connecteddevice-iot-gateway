@@ -2,6 +2,3 @@
 
 Connected Devices - Java repository.
 
-
-##Instructions
-
